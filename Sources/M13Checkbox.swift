@@ -13,6 +13,18 @@
 
 import UIKit
 
+/// The delegate protocol fires when check and uncheck the box.
+public protocol M13CheckboxDelegate: class {
+
+     /// Called when check the M13CheckBox
+    /// - Parameter checkBox: Current M13CheckBox object
+    func checked(_ checkBox:M13Checkbox)
+
+     /// Called when uncheck the M13CheckBox
+    /// - Parameter checkBox: Current M13Checkbox object
+    func unchecked(_ checkBox:M13Checkbox)
+}
+
 /// A customizable checkbox control for iOS.
 @IBDesignable
 open class M13Checkbox: UIControl {
@@ -20,6 +32,9 @@ open class M13Checkbox: UIControl {
     //----------------------------
     // MARK: - Constants
     //----------------------------
+    
+    /// The M13Checkbox delegate.
+     weak public var delegate: M13CheckboxDelegate?
     
     /**
     The possible states the check can be in.
@@ -319,9 +334,11 @@ open class M13Checkbox: UIControl {
     @objc open func toggleCheckState(_ animated: Bool = false) {
         switch checkState {
         case .checked:
+            delegate?.checked(self)
             setCheckState(.unchecked, animated: animated)
             break
         case .unchecked:
+            delegate?.unchecked(self)
             setCheckState(.checked, animated: animated)
             break
         case .mixed:
