@@ -334,12 +334,12 @@ open class M13Checkbox: UIControl {
     @objc open func toggleCheckState(_ animated: Bool = false) {
         switch checkState {
         case .checked:
-            delegate?.checked(self)
             setCheckState(.unchecked, animated: animated)
+            delegate?.unchecked(self)
             break
         case .unchecked:
-            delegate?.unchecked(self)
             setCheckState(.checked, animated: animated)
+            delegate?.checked(self)
             break
         case .mixed:
             setCheckState(.unchecked, animated: animated)
